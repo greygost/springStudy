@@ -1,0 +1,35 @@
+html {
+    height: 100%;
+}
+body {
+    margin:0;
+    padding:0;
+    min-height: 100%;
+}
+
+.setCenter{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+header li a {
+    height: 70px;
+    display: block;
+    font-size: 14px;
+    color: #888;
+    padding: 0 26px;
+    text-align: center;
+    line-height: 70px;
+}
+
+header ul {
+   padding-top: 10px;
+}
+
+.setQna{
+    width: 50%;
+    margin-top: 1%;
+    margin-right: auto;
+    margin-left: auto;
+}
