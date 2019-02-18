@@ -13,19 +13,19 @@
 <title>게시판 로그인</title>
 </head>
 <body data-gr-c-s-loaded="true" style="background-color: white">
-<form class="form-signin" action="logIn_process.php" method="post">
+<form class="form-signin" action="loginProcess" method="post">
     <div class="text-center mb-4">
         <!-- <img class="mb-4" src="/mpopAd/img/toplogo.png" alt="" style="width: 46%"> -->
         <h1 class="h3 mb-3 font-weight-normal">게시판 로그인</h1>
     </div>
 
     <div class="form-label-group">
-        <input type="text" id="inputId" name="inputId" class="form-control" placeholder="아이디" required="" autofocus="">
+        <input type="text" id="inputId" name="id" class="form-control" placeholder="아이디" required="" autofocus="">
         <label for="inputId">아이디</label>
     </div>
 
     <div class="form-label-group">
-        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="비밀번호" required="">
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="비밀번호" required="">
         <label for="inputPassword">비밀번호</label>
     </div>
 
