@@ -18,21 +18,24 @@ public class ViewController {
 	@RequestMapping(value = "/loginProcess",method=RequestMethod.POST)
 	public String loginProcess(@RequestParam("id") String id,@RequestParam("password") String password) {
 		
-		System.out.println("process");
-		boolean id_result = false;
-		boolean pass_result = false;
-		if(id.equals("dev")) {
-			id_result = true;
-		}
-		if(password.equals("a12345")) {
-			pass_result = true;
-		}
+//		System.out.println("process");
+//		boolean id_result = false;
+//		boolean pass_result = false;
+//		if(id.equals("dev")) {
+//			id_result = true;
+//		}
+//		if(password.equals("a12345")) {
+//			pass_result = true;
+//		}
+//		
+//		if(id_result == true && pass_result == true) {
+//			return "/WEB-INF/views/loginSuccess.jsp";			
+//		}else {
+//			return "/WEB-INF/views/loginFail.jsp";	
+//		}
+//		실제로 서비스와 DAO를 구현하여 로그인을 실행시켜 보자
 		
-		if(id_result == true && pass_result == true) {
-			return "/WEB-INF/views/loginSuccess.jsp";			
-		}else {
-			return "/WEB-INF/views/loginFail.jsp";	
-		}
 		
+		return "";
 	}
 }
