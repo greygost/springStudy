@@ -1,12 +1,16 @@
 package bbs.bbs.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import bbs.bbs.model.service.BbsService;
 @Controller
 public class ViewController {
+	
+	@Autowired
+	private BbsService bbsservice;
 	
 	@RequestMapping("/login")
 	public String login() {	
@@ -34,8 +38,8 @@ public class ViewController {
 //			return "/WEB-INF/views/loginFail.jsp";	
 //		}
 //		실제로 서비스와 DAO를 구현하여 로그인을 실행시켜 보자
-		
-		
+		int r = bbsservice.loginProcess(id, password);
+		System.out.println("result : "+r);
 		return "";
 	}
 }

@@ -11,11 +11,20 @@ http://www.springframework.org/schema/aop/spring-aop.xsd    http://www.springfra
 http://www.springframework.org/schema/beans/spring-beans.xsd    http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd">
 
+
+
 <context:annotation-config />
 <!-- 이부분은 각자설정할 패키지명에 맞춰서 설정 -->
 <context:component-scan base-package="bbs.bbs.controller"></context:component-scan>
 <mvc:annotation-driven></mvc:annotation-driven>
 <mvc:resources	location="/resources/css/" mapping="/css/**"  />
-        
-		
+       
+<context:property-placeholder location="/WEB-INF/config/jdbc.properties"/>
+
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+      <property name="driverClassName" value="${jdbc.driver}" />
+      <property name="url" value="${jdbc.url}" />
+      <property name="username" value="${jdbc.username}" />
+      <property name="password" value="${jdbc.password}" />
+</bean>		
 </beans>
