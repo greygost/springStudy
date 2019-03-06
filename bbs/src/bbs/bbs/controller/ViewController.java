@@ -5,12 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import bbs.bbs.model.dto.BbsDTO;
 import bbs.bbs.model.service.BbsService;
+
+
 @Controller
 public class ViewController {
 	
 	@Autowired
 	private BbsService bbsservice;
+	@Autowired
+	private BbsDTO bbsdto;
+	
 	
 	@RequestMapping("/login")
 	public String login() {	
@@ -38,8 +45,15 @@ public class ViewController {
 //			return "/WEB-INF/views/loginFail.jsp";	
 //		}
 //		실제로 서비스와 DAO를 구현하여 로그인을 실행시켜 보자
-		int r = bbsservice.loginProcess(id, password);
+		
+		bbsdto.setLoginId(id);
+		bbsdto.setPassword(password);
+		int r = bbsservice.loginProcess(bbsdto);
 		System.out.println("result : "+r);
-		return "";
+		String view = "/WEB-INF/views/loginSuccess.jsp";	;
+		if(r == 0) {
+			view = "/WEB-INF/views/loginFail.jsp";
+		}
+		return view;
 	}
 }

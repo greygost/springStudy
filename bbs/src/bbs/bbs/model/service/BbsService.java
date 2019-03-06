@@ -1,5 +1,7 @@
 package bbs.bbs.model.service;
 
+import bbs.bbs.model.dto.BbsDTO;
+
 public interface BbsService {
-	int loginProcess(String id,String pw);
+	int loginProcess(BbsDTO bbsdto);
 }

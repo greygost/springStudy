@@ -1,5 +1,7 @@
 package bbs.bbs.model.dao;
 
+import bbs.bbs.model.dto.BbsDTO;
+
 public interface BbsDao {
-	int getUsers(String id,String pw);
+	int getUsers(BbsDTO bbsDto);
 }

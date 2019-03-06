@@ -1,25 +1,30 @@
 package bbs.bbs.model.dao;
 
+
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import bbs.bbs.model.dto.BbsDTO;
+
 @Repository
 public class BbsDaoImpl implements BbsDao{
 	
-	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	private JdbcTemplate tpl;
 
-	
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate =  new JdbcTemplate(dataSource);
+		this.tpl =  new JdbcTemplate(dataSource);
 	}
 	
 	@Override
-	public int getUsers(String id,String pw) {
-		String sql = "select count(*) as cnt from Member where memberId = '"+id+"'and password = '"+pw+"'";
-		return jdbcTemplate.queryForObject(sql, Integer.class);
+	public int getUsers(BbsDTO bbDto) {
+		String sql = "select count(*) as cnt from Member where memberId = '"+bbDto.getLoginId()+"' and password = '"+bbDto.getPassword()+"'";
+		
+		System.out.println(sql);
+		return tpl.queryForObject(sql, Integer.class);
 		
 	}
 	

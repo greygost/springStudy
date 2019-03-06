@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bbs.bbs.model.dao.BbsDao;
+import bbs.bbs.model.dto.BbsDTO;
 
 @Service("bbsService")
 public class BbsServiceImpl implements BbsService{
@@ -12,7 +13,7 @@ public class BbsServiceImpl implements BbsService{
 	private BbsDao bbsdao;
 	
 	@Override
-	public int loginProcess(String id,String pw) {
-		return bbsdao.getUsers(id, pw);
+	public int loginProcess(BbsDTO bbsdto) {
+		return bbsdao.getUsers(bbsdto);
 	}
 }
