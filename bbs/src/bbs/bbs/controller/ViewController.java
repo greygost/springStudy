@@ -56,4 +56,15 @@ public class ViewController {
 		}
 		return view;
 	}
+	
+	@RequestMapping("/write")
+	public String write() {	
+		System.out.println("write");
+		return "/WEB-INF/views/write.jsp";
+	}
+	
+	@RequestMapping(value = "/writeProcess",method=RequestMethod.POST)
+	public void writeProcess(@RequestParam("id") String id,@RequestParam("password") String password) {
+		
+	}
 }
