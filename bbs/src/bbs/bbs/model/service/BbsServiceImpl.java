@@ -16,4 +16,10 @@ public class BbsServiceImpl implements BbsService{
 	public int loginProcess(BbsDTO bbsdto) {
 		return bbsdao.getUsers(bbsdto);
 	}
+
+	@Override
+	public void writeProcess(BbsDTO bbsdto) {
+		bbsdao.insertArticle(bbsdto);		
+	}
+	
 }

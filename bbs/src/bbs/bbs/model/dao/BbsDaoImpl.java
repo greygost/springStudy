@@ -30,8 +30,8 @@ public class BbsDaoImpl implements BbsDao{
 	
 	@Override
 	public void insertArticle(BbsDTO bbDto) {
-		String sql = "insert into Board ('title','content') values("+bbDto.getTitle()+","+bbDto.getContent()+")";
-		tpl.queryForObject(sql, String.class);
+		String sql = "insert into Board (title,content,wrId) values ('"+bbDto.getTitle()+"','"+bbDto.getContent()+"','"+bbDto.getLoginId()+"')";
+		tpl.update(sql);
 	}
 	
 }

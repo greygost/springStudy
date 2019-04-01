@@ -4,4 +4,5 @@ import bbs.bbs.model.dto.BbsDTO;
 
 public interface BbsService {
 	int loginProcess(BbsDTO bbsdto);
+	void writeProcess(BbsDTO bbsdto);
 }

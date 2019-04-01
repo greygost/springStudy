@@ -1,5 +1,8 @@
 package bbs.bbs.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,25 +30,7 @@ public class ViewController {
 	
 
 	@RequestMapping(value = "/loginProcess",method=RequestMethod.POST)
-	public String loginProcess(@RequestParam("id") String id,@RequestParam("password") String password) {
-		
-//		System.out.println("process");
-//		boolean id_result = false;
-//		boolean pass_result = false;
-//		if(id.equals("dev")) {
-//			id_result = true;
-//		}
-//		if(password.equals("a12345")) {
-//			pass_result = true;
-//		}
-//		
-//		if(id_result == true && pass_result == true) {
-//			return "/WEB-INF/views/loginSuccess.jsp";			
-//		}else {
-//			return "/WEB-INF/views/loginFail.jsp";	
-//		}
-//		실제로 서비스와 DAO를 구현하여 로그인을 실행시켜 보자
-		
+	public String loginProcess(@RequestParam("id") String id,@RequestParam("password") String password,HttpServletRequest request) {		
 		bbsdto.setLoginId(id);
 		bbsdto.setPassword(password);
 		int r = bbsservice.loginProcess(bbsdto);
@@ -53,6 +38,9 @@ public class ViewController {
 		String view = "/WEB-INF/views/loginSuccess.jsp";	;
 		if(r == 0) {
 			view = "/WEB-INF/views/loginFail.jsp";
+		}else {
+			HttpSession session = request.getSession();
+			session.setAttribute("loginId", id);
 		}
 		return view;
 	}
@@ -64,7 +52,14 @@ public class ViewController {
 	}
 	
 	@RequestMapping(value = "/writeProcess",method=RequestMethod.POST)
-	public void writeProcess(@RequestParam("id") String id,@RequestParam("password") String password) {
+	public String writeProcess(@RequestParam("title") String getTitle,@RequestParam("content") String getContent,HttpServletRequest request) {
+		bbsdto.setTitle(getTitle);
+		bbsdto.setContent(getContent);
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("loginId");
+		bbsdto.setLoginId(id);
+		bbsservice.writeProcess(bbsdto);
 		
+		return "/write";
 	}
 }
