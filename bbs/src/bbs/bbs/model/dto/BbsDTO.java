@@ -5,8 +5,15 @@ public class BbsDTO {
 	private String password;
 	private String title;
 	private String content;
+	private String idx;
 	
 	
+	public String getIdx() {
+		return idx;
+	}
+	public void setIdx(String idx) {
+		this.idx = idx;
+	}
 	public String getLoginId() {
 		return loginId;
 	}

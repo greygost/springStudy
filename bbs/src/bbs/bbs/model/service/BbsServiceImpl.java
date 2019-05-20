@@ -1,5 +1,7 @@
 package bbs.bbs.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,11 @@ public class BbsServiceImpl implements BbsService{
 	@Override
 	public void writeProcess(BbsDTO bbsdto) {
 		bbsdao.insertArticle(bbsdto);		
+	}
+
+	@Override
+	public List getList() {
+		return bbsdao.getList();
 	}
 	
 }
