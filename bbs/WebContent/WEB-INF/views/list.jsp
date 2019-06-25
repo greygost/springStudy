@@ -29,3 +29,12 @@
 
 </body>
 </html>
+
+<script>
+// 리스트에서 글 목록 클릭시 뷰어로 이동 하는 기능
+$('tr').click(function(){
+	//console.dir(this);
+	let ftd = $(this).children().first().text();
+	location.href = "/bbs/viewer?idx="+ftd;
+});
+</script>

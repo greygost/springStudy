@@ -127,6 +127,88 @@ public class BbsDaoImpl implements BbsDao{
 */
 	
 	
+	@Override
+	public List getContents(BbsDTO dto) {
+		String sql = "select * from Board where idx = "+dto.getIdx();
+		
+		return tpl.queryForObject(sql, 
+				new RowMapper<List>() {
+					public List mapRow(ResultSet rs,int rowNum) throws SQLException {
+						ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+						ResultSetMetaData md = rs.getMetaData();
+						int columns = md.getColumnCount();
+		//				1번째 요소를 삽입
+				        HashMap<String,Object> row0 = new HashMap<String, Object>(columns);
+				        for(int i=1; i<=columns; ++i) {
+				        	row0.put(md.getColumnName(i), rs.getObject(i));
+				        }
+				        list.add(row0);
+		//		        첫번째 이후 다른 요소가 있는지 확인후 있다면 계속해서 리스트에 삽입
+					    while(rs.next()) {			    				    	
+					        HashMap<String,Object> row = new HashMap<String, Object>(columns);
+					        for(int i=1; i<=columns; ++i) {
+					            row.put(md.getColumnName(i), rs.getObject(i));
+					        }
+					        list.add(row);
+					        
+					    }
+						return list;
+					}
+		
+				}
+			);
+	}
 	
+	
+	
+//	하진희씨 전용
+	/*
+	@Override
+	public List getContents(BbsDTO dto){
+		String sql = "select * from Board where idx = "+dto.getIdx();
+		
+//		디비 정보 셋팅 예시
+		String driver = "com.mysql.jdbc.Driver";
+	    String url = "jdbc:mysql://drrush.iptime.org:2033/gangseo";
+	    String dbId = "lty";
+	    String dbPw = "2501gost";
+//	   디비 정보 셋팅 예시 끝
+	    
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+	    
+        try{       
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url,dbId,dbPw);           
+            pstmt = conn.prepareStatement(sql);  
+            rs = pstmt.executeQuery();
+            ResultSetMetaData md = rs.getMetaData();
+			int columns = md.getColumnCount();
+			
+//	        요소가 있는지 확인후 있다면 계속해서 리스트에 삽입
+	        while(rs.next()) {			    				    	
+	        	HashMap<String,Object> row = new HashMap<String, Object>(columns);
+	        	for(int i=1; i<=columns; ++i) {
+		            row.put(md.getColumnName(i), rs.getObject(i));
+		        }	        	         
+				list.add(row);			        
+	        }	       
+		   
+        }catch(Exception e){
+        	System.out.println("Exception!!! -->"+e);
+        }finally{
+            if(rs != null){ try{ rs.close(); }catch(SQLException e){} }
+            if(pstmt != null){ try{ pstmt.close(); }catch(SQLException e){} }
+            if(conn != null){ try{ conn.close(); }catch(SQLException e){} }
+            
+           
+        }
+        
+        return list;
+	}
+*/
+
 	
 }

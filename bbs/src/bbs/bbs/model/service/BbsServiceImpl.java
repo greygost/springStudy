@@ -28,5 +28,11 @@ public class BbsServiceImpl implements BbsService{
 	public List getList() {
 		return bbsdao.getList();
 	}
+
+	@Override
+	public List getContent(BbsDTO bbsdto) {
+		// TODO Auto-generated method stub
+		return bbsdao.getContents(bbsdto);
+	}
 	
 }

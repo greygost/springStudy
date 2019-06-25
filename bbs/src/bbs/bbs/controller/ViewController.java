@@ -38,7 +38,7 @@ public class ViewController {
 		bbsdto.setPassword(password);
 		int r = bbsservice.loginProcess(bbsdto);
 		System.out.println("result : "+r);
-		String view = "/WEB-INF/views/loginSuccess.jsp";
+		String view = "/list";
 		
 //		로그인 실패 하면 실패 페이지로 성공하면 해당 로그인유저의 아이디를 세션에 저장한다.
 		if(r == 0) {
@@ -82,4 +82,20 @@ public class ViewController {
 		model.addAttribute("titleList",list);
 		return "/WEB-INF/views/list.jsp";
 	}
+	
+	@RequestMapping("/viewer")
+	public String viewer(@RequestParam("idx") String idx,Model model) {
+		System.out.println("viewer");
+		BbsDTO dto = new BbsDTO();
+		dto.setIdx(idx);
+		List list  = bbsservice.getContent(dto);
+		
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
+		model.addAttribute("contents", list);
+		
+		return "/WEB-INF/views/viewer.jsp";
+	}
+
 }

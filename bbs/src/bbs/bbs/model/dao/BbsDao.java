@@ -8,4 +8,5 @@ public interface BbsDao {
 	int getUsers(BbsDTO bbsDto);	
 	void insertArticle(BbsDTO bbsDto);	
 	List getList();
+	List getContents(BbsDTO bbsDto);
 }
