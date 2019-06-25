@@ -20,21 +20,40 @@
       <th scope="col">제목</th>
     </tr>
   </thead>
+  <tbody>
 	<c:forEach var="titles" items="${titleList}">
 		<tr>
 			<td>${titles.idx}</td><td>${titles.title}</td>
 		</tr>
 	</c:forEach>
+</tbody>
 </table>
-
-</body>
-</html>
 
 <script>
 // 리스트에서 글 목록 클릭시 뷰어로 이동 하는 기능
+//제이쿼리
+
 $('tr').click(function(){
 	//console.dir(this);
 	let ftd = $(this).children().first().text();
 	location.href = "/bbs/viewer?idx="+ftd;
 });
+
+//자바스크립트
+/*
+window.onload = function(){	
+	let tds = document.getElementsByTagName('tr');	
+	for(let i = 0;i < tds.length;i++){
+		tds[i].onclick = function(){
+			//console.log(this.firstChild.nextElementSibling.innerText);
+			let ftd = this.firstChild.nextElementSibling.innerText;
+			location.href = "/bbs/viewer?idx="+ftd;
+		};
+	}
+};
+*/
+
 </script>
+</body>
+</html>
+
