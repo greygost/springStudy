@@ -7,7 +7,23 @@ public class BbsDTO {
 	private String content;
 	private String idx;
 	
+	private String contentIdx;
+	private String replyContent;
 	
+	
+	
+	public String getContentIdx() {
+		return contentIdx;
+	}
+	public void setContentIdx(String contentIdx) {
+		this.contentIdx = contentIdx;
+	}
+	public String getReplyContent() {
+		return replyContent;
+	}
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
+	}
 	public String getIdx() {
 		return idx;
 	}

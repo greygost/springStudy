@@ -9,4 +9,9 @@ public interface BbsService {
 	void writeProcess(BbsDTO bbsdto);
 	List getList();
 	List getContent(BbsDTO bbsdto);
+	String updateProcess(BbsDTO bbsdto);
+	
+	void repleWriteProcess(BbsDTO bbsdto);
+	
+	List getRepls(BbsDTO bbsdto);
 }

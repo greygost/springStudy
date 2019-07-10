@@ -34,5 +34,22 @@ public class BbsServiceImpl implements BbsService{
 		// TODO Auto-generated method stub
 		return bbsdao.getContents(bbsdto);
 	}
+
+	@Override
+	public String updateProcess(BbsDTO bbsdto) {
+		// TODO Auto-generated method stub
+		return bbsdao.updateArticle(bbsdto);
+	}
+
+	@Override
+	public void repleWriteProcess(BbsDTO bbsdto) {
+		bbsdao.insertReplArticle(bbsdto);
+		
+	}
+
+	@Override
+	public List getRepls(BbsDTO bbsdto) {
+		return bbsdao.getReplContents(bbsdto);
+	}
 	
 }

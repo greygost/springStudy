@@ -6,11 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import bbs.bbs.model.dto.BbsDTO;
 import bbs.bbs.model.service.BbsService;
@@ -84,7 +86,7 @@ public class ViewController {
 	}
 	
 	@RequestMapping("/viewer")
-	public String viewer(@RequestParam("idx") String idx,Model model) {
+	public String viewer(@RequestParam("idx") String idx,Model model,HttpServletRequest request) {
 		System.out.println("viewer");
 		BbsDTO dto = new BbsDTO();
 		dto.setIdx(idx);
@@ -93,9 +95,53 @@ public class ViewController {
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i));
 		}
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("loginId");
+		model.addAttribute("userId", id);
 		model.addAttribute("contents", list);
+		dto.setContentIdx(idx);
+		List replList = bbsservice.getRepls(dto);
+		if(replList != null) {
+			for (int i = 0; i < replList.size(); i++) {
+				System.out.println(replList.get(i));
+			}
+		}
+		model.addAttribute("repls", replList);
 		
 		return "/WEB-INF/views/viewer.jsp";
+	}
+	
+	@RequestMapping(value = "/updateProcess",method = RequestMethod.POST)
+	@ResponseBody //@ResponseBody를 사용해주면 view를 생성해주는것이 아니라, JSON 혹은 Object 형태로 데이터를 넘겨준다.
+	public String updateProcess(@RequestParam("content") String getContent,@RequestParam("idx") String idx) {
+		System.out.println("updateProcess");
+		BbsDTO dto = new BbsDTO();
+		dto.setContent(getContent);
+		dto.setIdx(idx);
+		String retval = bbsservice.updateProcess(dto);
+		System.out.println(retval);
+		String result = "ok";
+		if(retval != "1") {
+			result = "false";
+		}
+		return result;
+	}
+	
+	
+	@RequestMapping(value = "/replWriteProcess",method=RequestMethod.POST)
+	@ResponseBody
+	public String replWriteProcess(@RequestParam("contentIdx") String cIdx,@RequestParam("replyContent") String rContent,HttpServletRequest request) {
+		bbsdto.setContentIdx(cIdx);
+		bbsdto.setReplyContent(rContent);
+
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("loginId");
+//		세션에서 불러온 아이디를 작성자 아이디에 셋팅
+		bbsdto.setLoginId(id);
+		String result = "ok";
+		bbsservice.repleWriteProcess(bbsdto);
+		
+		return "/viewer?idx="+cIdx;
 	}
 
 }

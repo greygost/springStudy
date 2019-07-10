@@ -9,4 +9,8 @@ public interface BbsDao {
 	void insertArticle(BbsDTO bbsDto);	
 	List getList();
 	List getContents(BbsDTO bbsDto);
+	String updateArticle(BbsDTO bbsDto);
+	void insertReplArticle(BbsDTO bbsDto);
+	
+	List getReplContents(BbsDTO bbsDto);
 }

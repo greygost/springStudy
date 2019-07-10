@@ -158,7 +158,8 @@ public class BbsDaoImpl implements BbsDao{
 				}
 			);
 	}
-	
+
+
 	
 	
 //	하진희씨 전용
@@ -210,5 +211,59 @@ public class BbsDaoImpl implements BbsDao{
 	}
 */
 
+	@Override
+	public String updateArticle(BbsDTO bbDto) {
+		String sql = "update Board set content='"+bbDto.getContent()+"' where idx = '"+bbDto.getIdx()+"'";
+		
+		int retVal = tpl.update(sql);
+		String result = Integer.toString(retVal);
+		return result;
+	}
+
+	@Override
+	public void insertReplArticle(BbsDTO bbsDto) {
+		String sql = "insert into reply (contentIdx,replyContent,wrId) values ('"+bbsDto.getContentIdx()+"','"+bbsDto.getReplyContent()+"','"+bbsDto.getLoginId()+"')";
+		tpl.update(sql);
+		
+	}
 	
+	@Override
+	public List getReplContents(BbsDTO dto) {
+		String sql = "select * from reply where contentIdx = "+dto.getContentIdx()+" order by idx desc";
+		System.out.println(sql);
+		try {
+			return tpl.queryForObject(sql, 
+					new RowMapper<List>() {
+						public List mapRow(ResultSet rs,int rowNum) throws SQLException {
+							ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+							ResultSetMetaData md = rs.getMetaData();
+							int columns = md.getColumnCount();
+			//				1번째 요소를 삽입
+					        HashMap<String,Object> row0 = new HashMap<String, Object>(columns);
+					        for(int i=1; i<=columns; ++i) {
+					        	row0.put(md.getColumnName(i), rs.getObject(i));
+					        }
+					        list.add(row0);
+			//		        첫번째 이후 다른 요소가 있는지 확인후 있다면 계속해서 리스트에 삽입
+						    while(rs.next()) {			    				    	
+						        HashMap<String,Object> row = new HashMap<String, Object>(columns);
+						        for(int i=1; i<=columns; ++i) {
+						            row.put(md.getColumnName(i), rs.getObject(i));
+						        }
+						        list.add(row);
+						        
+						    }
+							return list;
+						}
+			
+					}
+				);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+		
+	}
+
 }
